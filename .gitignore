@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+jeopardy_questions.json
+questions.db
+sqlite3.dll
+sqlite3.exe
