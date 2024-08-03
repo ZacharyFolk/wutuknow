@@ -6,9 +6,25 @@
   font-family: 'digital-7';
   src: url('./digital-7.ttf') format('truetype');
 }
+@font-face {
+  font-family: 'shadows';
+  src: url('./ShadowsIntoLight-Regular.ttf') format('truetype');
+}
+
 body {
-  background: #0f0d8f;
   color: #fff;
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center; /* vertically center */
+  height: 100vh; /* full viewport height */
+  margin: 0; /* remove default body margin */
+
+  background-color: #080747;
+  background-image: url('https://www.transparenttextures.com/patterns/3px-tile.png');
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+#root {
+  width: 90%;
 }
 a:link,
 a:visited {
@@ -18,19 +34,37 @@ a:hover {
   color: #fff;
 }
 h1 {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 #main.trivia .terminalWindow {
   display: none;
 }
 
+.splash-screen {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.rules ul {
+  margin-bottom: 50px;
+  padding-left: 20px;
+}
+.rules li {
+  margin: 10px 0;
+}
 .trivia-board {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 10px;
 }
+.trivia-board.final-round {
+  display: flex;
+  max-width: 80%;
+  margin: 40px auto;
+  justify-content: center;
+}
 .trivia-board h1 {
-  font-size: 1.2em;
   text-align: center;
   height: 80px;
   display: flex;
@@ -56,6 +90,51 @@ div.value {
 }
 .value:hover {
   background-color: #1a17e1;
+}
+.value.wager {
+  height: auto;
+  font-size: inherit;
+}
+.value.wager:hover {
+  background-color: transparent;
+}
+.wager-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.value input {
+  font-family: shadows;
+  background: transparent;
+  color: #fff;
+  font-size: 3.1em;
+  min-width: 120px;
+  margin: 0px auto;
+  text-align: center;
+  width: 80%;
+  border: 0;
+  outline: none;
+  margin: 0 0 20px;
+}
+.wager-box button {
+  margin: 20px 0;
+  width: 50%;
+}
+/* WebKit */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-moz-number-spin-box {
+  display: none;
 }
 .trivia-container {
   width: 95%;
@@ -135,7 +214,11 @@ button:hover {
   width: 100%;
   margin: 10px 0;
 }
-
+.qResult {
+  text-align: center;
+  line-height: 3em;
+  font-size: 1.2em;
+}
 .question {
   line-height: 1.7em;
 }
@@ -145,9 +228,12 @@ button:hover {
   align-items: center;
   margin-top: 10px;
 }
+.answer span {
+  min-width: 100px;
+}
 .terminal-input {
   margin-left: 20px;
-  width: 50%;
+  width: 70%;
   background-color: #383838;
   display: block;
   padding: 0.9em;
@@ -163,7 +249,6 @@ button:hover {
 .game-container {
   position: relative;
   margin: 20px auto;
-  padding: 0 20px;
 }
 .gameHeader {
   display: flex;
@@ -171,32 +256,40 @@ button:hover {
   align-items: center;
   border: 1px solid;
   color: #fff;
+  justify-content: space-between;
+  width: 100%;
+  font-family: digital-7;
+  font-size: 1.3em;
+}
+.header-left,
+.header-right {
+  display: flex;
+  margin: 10px 0px 10px 40px;
+  align-items: center;
+  width: 50%;
 }
 .gameTitle {
-  width: 250px;
-  text-align: center;
   text-transform: uppercase;
   font-family: gyparody;
-  font-size: 2em;
+  font-size: 1.6em;
   letter-spacing: 0.1em;
 }
+
 .score {
   margin: 10px auto;
-  min-width: 260px;
   text-align: center;
-  font-family: digital-7;
-  font-size: 1.6em;
+}
+.round {
+  margin-left: 20px;
 }
 .gameHeader button {
   background-color: #070414;
-  padding: 4px 0;
+  padding: 10px 20px;
   cursor: pointer;
   text-transform: uppercase;
-  margin: 0 25px 0 0px;
-  flex: 0 0 180px;
-  width: 180px;
   opacity: 0.8;
   color: #b5b5b5;
+  margin-right: 20px;
 }
 .gameHeader button:hover {
   background-color: #1e1ca8;
@@ -208,19 +301,26 @@ button:hover {
 }
 
 @media only screen and (max-width: 799px) {
+  body {
+    align-items: flex-start;
+  }
   div.value {
     font-size: 2.2em;
   }
 
-  .gameTitle {
-    display: none;
+  .gameHeader {
+    flex-direction: column;
   }
-  .score {
-    min-width: 220px;
+  .header-left,
+  .header-right {
+    justify-content: space-around;
+    margin: 10px 0 10px;
+    width: 100%;
   }
-  .gameHeader button {
-    margin: 0 15px;
-    flex: auto;
+  .header-right {
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+    padding-top: 20px;
   }
   .trivia-board > div {
     min-width: 40%;
@@ -238,6 +338,9 @@ button:hover {
     display: none;
   }
   .on {
+    display: block;
+  }
+  .trivia-board.final-round .off {
     display: block;
   }
 }

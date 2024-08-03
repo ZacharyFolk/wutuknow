@@ -34,12 +34,12 @@ app.get('/api/game', (req, res) => {
       }
 
       const { show_number } = row;
-
+      // filter values to remove $ and , so it can be treated as an integer instead of a string for sorting
       let query = `
           SELECT category, question, answer, value
           FROM clues 
           WHERE show_number = '${show_number}' ${roundFilter}
-          ORDER BY category, value`;
+          ORDER BY category, CAST(REPLACE(REPLACE(value, '$', ''), ',', '') AS INTEGER)`;
 
       if (round === 'Final Jeopardy!') {
         query = `
@@ -67,7 +67,7 @@ app.get('/api/game', (req, res) => {
           categories[row.category].clues.push({
             question: row.question,
             answer: row.answer,
-            value: row.value,
+            value: row.value ? row.value.replace(',', '') : null,
           });
         });
 
