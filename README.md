@@ -1,9 +1,9 @@
 <h1 align="center">
-  Vite Template React
+WUTUKNOW
 </h1>
 
 <p align="center">
-  <a href="https://github.com/SafdarJamal/vite-template-react/releases">
+  <a href="https://github.com/">
     <img src="https://img.shields.io/github/v/release/SafdarJamal/vite-template-react" alt="GitHub Release (latest by date)" />
   </a>
   <a href="https://github.com/SafdarJamal/vite-template-react/blob/main/LICENSE">
@@ -15,63 +15,67 @@
     A <a href="https://vitejs.dev">Vite</a> + <a href="https://react.dev">React</a> starter template.
 </p>
 
-![Vite Template React](https://github.com/SafdarJamal/vite-template-react/assets/48409548/4b1eb99e-01b8-4752-91c0-76930e7948c1)
+An experiment to build a Jeopardy style game. It is just for fun and far from perfect.  
+It relies on the fuzzy math of [ Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) to allow for some flexibility with matching user input.  
 
-## Folder Structure
+You can play around with this [here](https://wutuknow.folk.codes).
 
-No configuration or complicated folder structures, just the files you need to build your app:
-
-```
-vite-template-react
-├── node_modules
-├── public
-│   ├── favicon.svg
-│   └── robots.txt
-└── src
-    ├── App.css
-    ├── App.jsx
-    ├── App.test.jsx
-    ├── index.css
-    ├── index.jsx
-    └── logo.svg
-    └── setupTests.js
-├── .gitignore
-├── index.html
-├── package.json
-├── README.md
-├── vite.config.js
-```
+If you would like to run this on your own server these are the steps to get set up. 
 
 ## Development
+
 
 To get a local copy of the code, clone it using git:
 
 ```
-git clone https://github.com/SafdarJamal/vite-template-react.git
-cd vite-template-react
+git clone https://github.com/ZacharyFolk/wutuknow.git
+cd wutuknow
 ```
 
-Make it your own:
+Assuming Node is all set up you will all need to install sqlite3 for the database.
 
 ```
-rm -rf .git && git init && npm init
-git add .
-git commit -m "Initial commit"
+sudo apt-get update
+sudo apt-get install sqlite3
 ```
 
-Install dependencies:
+and also install for Node to use in the project folder run
 
 ```
-npm i
+npm install sqlite3
 ```
 
-Now, you can start a local web server by running:
+Now create the database and schema 
 
 ```
-npm start
+cd sqlite
+touch questions.db
+sqlite3 questions.db
+
+# In SQLite shell create the clues table : 
+
+CREATE TABLE clues (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  category TEXT,
+  air_date TEXT,
+  question TEXT,
+  value TEXT,
+  answer TEXT,
+  round TEXT,
+  show_number TEXT
+);
+
+# Exit to run the import process
+.quit
 ```
 
-And then open http://localhost:3000 to view it in the browser.
+Now Node will run the import process which takes some time with over 200,000 records.
+
+```
+node import.js
+```
+
+
 
 #### Available Scripts
 
@@ -86,7 +90,7 @@ In this project, you can run the following scripts:
 
 ## Credits
 
-Vite Template React is built and maintained by [Safdar Jamal](https://safdarjamal.github.io).
+Built from a Vite Template React is built and maintained by [Safdar Jamal](https://safdarjamal.github.io).
 
 ## License
 
