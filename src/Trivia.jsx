@@ -138,7 +138,7 @@ const Trivia = () => {
 
   const fetchBoard = async () => {
     const res = await axios.get(
-      `http://localhost:3011/api/game?round=${state.round}`
+      `https://wutuknow-api.folk.codes/api/game?round=${state.round}`
     );
     const result = await res.data;
 
@@ -368,14 +368,13 @@ const Trivia = () => {
     <div className="game-container">
       {state.splashScreenVisible ? (
         <div className="splash-screen">
-          <h1 className="gameTitle">Wutukno?</h1>
+          <h1 className="gameTitle">Wutuknow?</h1>
           <p>
             Welcome to an experimental game that I built just for fun. I also
             built an API to query a huge dataset of over 250,000 questions and
             answers. You can read more about it on my blog.
           </p>
           <p>
-            {' '}
             This in no way associated or sponsored by Jeopardy Productions,
             Inc., I am just a fan and making random stuff to improve my Node and
             React skills.
